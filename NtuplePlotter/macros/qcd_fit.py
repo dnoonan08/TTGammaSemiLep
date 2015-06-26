@@ -106,8 +106,8 @@ def makenewFit(varname, varmin, varmax, signalHist, backgroundHist, otherMCHist,
         otherMCVar = RooRealVar(otherMCfname, otherMCfname,otherMCIntegral,0.*otherMCIntegral,5.*otherMCIntegral) 
 	#constraints:
         #qcdVar.setVal(qcd)
-        #qcdVar.setConstant(True)
-        print "Integral of otherMC= "+str(otherMCIntegral)
+        qcdVar.setConstant(True)
+
 	#otherMCVar.setVal(otherMC)
 	#otherMCVar.setConstant(True)
         #setting QCD and otherMC with a gaussian constraint:
