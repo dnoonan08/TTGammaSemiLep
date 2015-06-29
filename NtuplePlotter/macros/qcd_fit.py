@@ -102,11 +102,12 @@ def makenewFit(varname, varmin, varmax, signalHist, backgroundHist, otherMCHist,
 	otherMCIntegral  = otherMCHist.Integral()
         signalVar = RooRealVar(sfname,sfname, signalIntegral,0.,5.*signalIntegral)
         bkgVar = RooRealVar(bkgfname,bkgfname, bkgIntegral,0.,5.*bkgIntegral)
-        qcdVar = RooRealVar(qcdfname,qcdfname, qcdIntegral,0.*qcdIntegral,5.*qcdIntegral)
-        otherMCVar = RooRealVar(otherMCfname, otherMCfname,otherMCIntegral,0.*otherMCIntegral,5.*otherMCIntegral) 
+        qcdVar = RooRealVar(qcdfname,qcdfname, qcdIntegral,0.5*qcdIntegral,1.5*qcdIntegral)
+        otherMCVar = RooRealVar(otherMCfname, otherMCfname,otherMCIntegral,0.8*otherMCIntegral,1.2*otherMCIntegral) 
 	#constraints:
         #qcdVar.setVal(qcd)
-        qcdVar.setConstant(True)
+        #qcdVar.setConstant(True)
+	#otherMCVar.setConstant(True)
 
 	#otherMCVar.setVal(otherMC)
 	#otherMCVar.setConstant(True)
@@ -308,7 +309,7 @@ def doM3fit():
 	print
 	print '#'*80
 	print 'Total amount of Top events in fit:', m3Top, '+-', m3TopErr
-	print 'Total amount of WJets events in fit:', m3WJets, '+-', m3WJetsErr
+	print 'Total amount of WJets events in fit:', m3Wjets, '+-', m3WjetsErr
 	print 'Total amount of QCD events in fit:', m3QCD, '+-', m3QCDerr
 	print 'Total amount of Other MC events in fit:', m3otherMC, '+-', m3otherMCerr
 	print '#'*80

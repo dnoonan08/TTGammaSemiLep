@@ -95,15 +95,15 @@ def makenewFit(varname, varmin, varmax, signalHist, backgroundHist, otherMCHist,
         
 	signalVar = RooRealVar(sfname,sfname, signalIntegral,0.,5.*signalIntegral)
         bkgVar = RooRealVar(bkgfname,bkgfname, bkgIntegral,0.,5.*bkgIntegral)
-        qcdVar = RooRealVar(qcdfname,qcdfname, qcdIntegral,0.*qcdIntegral,5.*qcdIntegral)
-        otherMCVar = RooRealVar(otherMCfname, otherMCfname,otherMCIntegral,0.*otherMCIntegral,5.*otherMCIntegral) 
+        qcdVar = RooRealVar(qcdfname,qcdfname, qcdIntegral,0.5*qcdIntegral,1.5*qcdIntegral)
+        otherMCVar = RooRealVar(otherMCfname, otherMCfname,otherMCIntegral,0.8*otherMCIntegral,1.2*otherMCIntegral) 
 
 
 	Gauss_QCD = RooGaussian("gauss_QCD","gauss_QCD",qcdVar,RooFit.RooConst(qcdIntegral),RooFit.RooConst(0.5*qcdIntegral))
         Gauss_otherMC =  RooGaussian("gauss_otherMC","gauss_otherMC",otherMCVar,RooFit.RooConst(otherMCIntegral),RooFit.RooConst(.2*otherMCIntegral))
 
-        # qcdVar.setConstant(True)
-        # otherMCVar.setConstant(True)
+        #qcdVar.setConstant(True)
+        #otherMCVar.setConstant(True)
         constraints = RooArgSet(Gauss_QCD,Gauss_otherMC)
 
         listPdfs = RooArgList(signalPdf,\
@@ -259,7 +259,7 @@ def doM3fit_photon():
         otherMCHist.Rebin(2)
 	QCDHist.Rebin(2)
 
-	(m3Top, m3TopErr,m3Wjets, m3WjetsErr, m3otherMC, m3otherMCerr, m3qcd, m3qcdErr) = makenewFit(varToFit+'(GeV), photon selection', 0.0,800.0, TopHist, WJetsHist,otherMCHist, QCDHist, DataHist, 'plots/'+varToFit+'_photon_fit.png')
+	(m3Top, m3TopErr,m3Wjets, m3WjetsErr, m3otherMC, m3otherMCerr, m3QCD, m3QCDerr) = makenewFit(varToFit+'(GeV), photon selection', 0.0,800.0, TopHist, WJetsHist,otherMCHist, QCDHist, DataHist, 'plots/'+varToFit+'_photon_fit.png')
         lowfitBin = DataHist.FindBin(0.01)
         highfitBin = DataHist.FindBin(799.99)
 
@@ -275,7 +275,7 @@ def doM3fit_photon():
 	print
 	print '#'*80
 	print 'Total amount of Top events in fit:', m3Top, '+-', m3TopErr
-	print 'Total amount of WJets events in fit:', m3WJets, '+-', m3WJetsErr
+	print 'Total amount of WJets events in fit:', m3Wjets, '+-', m3WjetsErr
 	print 'Total amount of QCD events in fit:', m3QCD, '+-', m3QCDerr
 	print 'Total amount of Other MC events in fit:', m3otherMC, '+-', m3otherMCerr
 	print '#'*80
@@ -290,7 +290,7 @@ def doM3fit_photon():
 	otherMCSF = m3otherMC/otherMCInt
 	otherMCSFerror = m3otherMCerr/otherMCInt
         #QCDSF = (1-m3Wjets-m3TopFrac)*dataInt/QCDInt
-	totMC = m3Top + m3Wjets + m3otherMC + m3qcd
+	totMC = m3Top + m3Wjets + m3otherMC + m3QCD
 	m3_topFrac = m3Top/totMC
 	m3_topFracErr = m3TopErr/totMC	
 	print 'the top fraction after photon selection :',m3_topFrac
