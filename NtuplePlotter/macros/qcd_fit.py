@@ -305,6 +305,16 @@ def doM3fit():
 	TopSF = m3Top/ topInt
 	TopSFerror = m3TopErr/ topInt
 	
+	print
+	print '#'*80
+	print 'Total amount of Top events in fit:', m3Top, '+-', m3TopErr
+	print 'Total amount of WJets events in fit:', m3WJets, '+-', m3WJetsErr
+	print 'Total amount of QCD events in fit:', m3QCD, '+-', m3QCDerr
+	print 'Total amount of Other MC events in fit:', m3otherMC, '+-', m3otherMCerr
+	print '#'*80
+
+	print
+
 	print '#'*80
 	print 'Correction to the Top scale factor: ', TopSF, ' +-', TopSFerror, '(fit error only)'
 	WJetsSF = m3Wjets / WJInt
